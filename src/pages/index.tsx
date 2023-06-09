@@ -1,17 +1,18 @@
 import { AuthLayout } from '@components/layout/auth-layout';
 import { SEO } from '@components/common/seo';
-import { LoginMain } from '@components/login/login-main';
+import { IndexMain } from '@components/index/index-main';
 import { LoginFooter } from '@components/login/login-footer';
 import type { ReactElement, ReactNode } from 'react';
+import Link from 'next/link';
 
 export default function Login(): JSX.Element {
   return (
     <div className='grid min-h-screen grid-rows-[1fr,auto]'>
       <SEO
-        title='Twitter - It’s what’s happening'
-        description='From breaking news and entertainment to sports and politics, get the full story with all the live commentary.'
-      />
-      <LoginMain />
+        title='Minka - Applicant Portal'
+        description='Gain the skills you need and find your dream job.'
+       />
+      <IndexMain />
       <LoginFooter />
     </div>
   );

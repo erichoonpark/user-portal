@@ -108,6 +108,12 @@ export function Sidebar(): JSX.Element {
               linkName='Profile'
               iconName='UserIcon'
             />
+
+<SidebarLink
+              href={`/logout`}
+              linkName='Logout'
+              iconName='ArrowLeftOnRectangleIcon'
+            />
             {!isMobile && <MoreSettings />}
           </nav>
           <Button

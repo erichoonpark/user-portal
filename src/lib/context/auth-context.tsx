@@ -3,7 +3,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signOut as signOutFirebase
+  signInWithEmailAndPassword,
+  signOut as signOutFirebase,
+  createUserWithEmailAndPassword
 } from 'firebase/auth';
 import {
   doc,
@@ -35,6 +37,7 @@ type AuthContext = {
   userBookmarks: Bookmark[] | null;
   signOut: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
+  signInWithEmailAndPasswordWrapped: (email: string, password: string) => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
@@ -157,6 +160,20 @@ export function AuthContextProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
+
+  const signInWithEmailAndPasswordWrapped = async (email: string, password: string): Promise<any> => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+    } catch (error) {
+      console.log('error message', error.message)
+      if((error as any).message === "Firebase: Error (auth/user-not-found).") {
+        console.log('creating email')
+        return createUserWithEmailAndPassword(auth, email, password)
+      }
+      setError(error as Error);
+    }
+  };
+  
   const signInWithGoogle = async (): Promise<void> => {
     try {
       const provider = new GoogleAuthProvider();
@@ -185,7 +202,8 @@ export function AuthContextProvider({
     randomSeed,
     userBookmarks,
     signOut,
-    signInWithGoogle
+    signInWithGoogle,
+    signInWithEmailAndPasswordWrapped
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

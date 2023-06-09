@@ -4,15 +4,16 @@ const config = {
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
+  appId: process.env.NEXT_PUBLIC_APP_ID
+  // measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 } as const;
 
 type Config = typeof config;
 
 export function getFirebaseConfig(): Config {
-  if (Object.values(config).some((value) => !value))
-    throw new Error('Firebase config is not set or incomplete');
-
+  if (Object.values(config).some((value) => !value)) {
+    console.log('config', config);
+    throw new Error('Firebase config is not set or incomplete' + JSON.stringify(config));
+  }
   return config;
 }

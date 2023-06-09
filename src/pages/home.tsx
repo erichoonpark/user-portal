@@ -18,15 +18,17 @@ import type { ReactElement, ReactNode } from 'react';
 export default function Home(): JSX.Element {
   const { isMobile } = useWindow();
 
-  const { data, loading, LoadMore } = useInfiniteScroll(
-    tweetsCollection,
-    [where('parent', '==', null), orderBy('createdAt', 'desc')],
-    { includeUser: true, allowNull: true, preserve: true }
-  );
+  // const { data, loading, LoadMore } = useInfiniteScroll(
+  //   tweetsCollection,
+  //   [where('parent', '==', null), orderBy('createdAt', 'desc')],
+  //   { includeUser: true, allowNull: true, preserve: true }
+  // );
 
+  const loading = false;
+  const data: any[] = [];
   return (
     <MainContainer>
-      <SEO title='Home / Twitter' />
+      <SEO title='Home / Minka' />
       <MainHeader
         useMobileSidebar
         title='Home'
@@ -42,12 +44,13 @@ export default function Home(): JSX.Element {
           <Error message='Something went wrong' />
         ) : (
           <>
+          {/*
             <AnimatePresence mode='popLayout'>
               {data.map((tweet) => (
                 <Tweet {...tweet} key={tweet.id} />
               ))}
-            </AnimatePresence>
-            <LoadMore />
+             </AnimatePresence>
+            <LoadMore /> */}
           </>
         )}
       </section>

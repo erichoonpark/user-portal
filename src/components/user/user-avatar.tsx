@@ -29,6 +29,7 @@ export function UserAvatar({
         )}
         tabIndex={username ? 0 : -1}
       >
+        {src && 
         <NextImage
           useSkeleton
           imgClassName='rounded-full'
@@ -38,6 +39,7 @@ export function UserAvatar({
           alt={alt}
           key={src}
         />
+}
       </a>
     </Link>
   );
