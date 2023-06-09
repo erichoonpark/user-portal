@@ -24,6 +24,10 @@ service cloud.firestore {
                        && isValidImages(request.resource.data.images);
       allow delete: if isAuthorized(resource.data.createdBy);
     }
+    match /userProfiles/{userId} {
+      allow create, read, update: if isAuthorized(request.resource.data.createdBy)
+      allow delete: if isAuthorized(resource.data.createdBy);
+    }
 
     match /users/{document=**} {
       allow read, write: if request.auth != null;
